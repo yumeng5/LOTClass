@@ -20,20 +20,6 @@ We provide the four datasets used in the paper under ```datasets``` and four bas
 
 The bash scripts assume you have two 10GB GPUs. If you have different number of GPUs, or GPUs of different memory sizes, refer to for how to set command line arguments appropriately.
 
-## Inputs
-
-The weak supervision sources ```${sup_source}``` can come from any of the following:
-* Label surface names (```labels```); you need to provide class names for each class in ```./${dataset}/classes.txt```, where each line begins with the class id (starting from ```0```), followed by a colon, and then the class label surface name. 
-* Class-related keywords (```keywords```); you need to provide class-related keywords for each class in ```./${dataset}/keywords.txt```, where each line begins with the class id (starting from ```0```), followed by a colon, and then the class-related keywords separated by commas. 
-* Labeled documents (```docs```); you need to provide labeled document ids for each class in ```./${dataset}/doc_id.txt```, where each line begins with the class id (starting from ```0```), followed by a colon, and then document ids in the corpus (starting from ```0```) of the corresponding class separated by commas. 
-
-Examples are given under ```./agnews/``` and ```./yelp/```.
-
-## Outputs
-
-The final results (document labels) will be written in ```./${dataset}/out.txt```, where each line is the class label id for the corresponding document.
-
-Intermediate results (e.g. trained network weights, self-training logs) will be saved under ```./results/${dataset}/${model}/```.
 
 ## Running on a New Dataset
 
@@ -50,12 +36,10 @@ You can always refer to the example datasets when adapting the code for a new da
 
 Please cite the following paper if you find the code helpful for your research.
 ```
-@inproceedings{meng2018weakly,
-  title={Weakly-Supervised Neural Text Classification},
-  author={Meng, Yu and Shen, Jiaming and Zhang, Chao and Han, Jiawei},
-  booktitle={Proceedings of the 27th ACM International Conference on Information and Knowledge Management},
-  pages={983--992},
-  year={2018},
-  organization={ACM}
+@inproceedings{meng2020text,
+  title={Text Classification Using Label Names Only: A Language Model Self-Training Approach},
+  author={Meng, Yu and Zhang, Yunyi and Huang, Jiaxin and Xiong, Chenyan and Ji, Heng and Zhang, Chao and Han, Jiawei},
+  booktitle={Proceedings of the 2020 Conference on Empirical Methods in Natural Language Processing},
+  year={2020},
 }
 ```
