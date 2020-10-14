@@ -12,14 +12,15 @@ Before running, you need to first install the required packages by typing follow
 $ pip3 install -r requirements.txt
 ```
 
-Python 3.6 is strongly recommended; using older python versions might lead to package incompatibility issues.
+Python 3.6 or above is strongly recommended; using older python versions might lead to package incompatibility issues.
 
 ## Reproducing the Results
 
 We provide the four datasets used in the paper under ```datasets``` and four bash scripts ```agnews.sh```, ```dbpedia.sh```, ```imdb.sh``` and ```amazon.sh``` for running the model on the four datasets.
 
-The bash scripts assume you have two 10GB GPUs. If you have different number of GPUs, or GPUs of different memory sizes, refer to for how to set command line arguments appropriately.
+The bash scripts assume you have two 10GB GPUs. If you have different number of GPUs, or GPUs of different memory sizes, refer to [the next section](#command-line-arguments) for how to set command line arguments appropriately.
 
+## Command Line Arguments
 
 ## Running on a New Dataset
 
