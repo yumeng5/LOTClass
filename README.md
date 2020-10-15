@@ -20,7 +20,7 @@ We provide four ```get_data.sh``` scripts for downloading the datasets used in t
 
 **Note: Our model does not use training labels; we provide the training/test set ground truth labels only for completeness and evaluation.**
 
-The bash scripts assume you have two 10GB GPUs. If you have different number of GPUs, or GPUs of different memory sizes, refer to [the next section](#command-line-arguments) for how to set command line arguments appropriately.
+The training bash scripts assume you have two 10GB GPUs. If you have different number of GPUs, or GPUs of different memory sizes, refer to [the next section](#command-line-arguments) for how to change the following command line arguments appropriately (while keeping other arguments unchanged): ```train_batch_size```, ```accum_steps```, ```eval_batch_size``` and ```gpus```.
 
 ## Command Line Arguments
 
@@ -30,7 +30,8 @@ python src/train.py -h
 ```
 The following arguments have direct impact on the performance of the model and need to be set carefully:
 
-* train_batch_size: 
+* ```train_batch_size```, ```accum_steps```, ```gpus```: These three arguments should be set together. You need to make sure that the **effective training batch size**, calculated as ```train_batch_size * accum_steps * gpus```, is around **128**. For example, if you have 4 GPUs, then you can set ```train_batch_size = 32, accum_steps = 1, gpus = 4```; if you have 1 GPU, then you can set ```train_batch_size = 32, accum_steps = 4, gpus = 1```. If your GPUs have different memory sizes, you might need to change ```train_batch_size``` while adjusting ```accum_steps``` and ```gpus``` at the same time to keep the **effective training batch size** around **128**.
+* ```eval_batch_size```: This argument only impact the speed of the algorithm; use as large evaluation batch size as your GPUs can hold. 
 
 ## Running on a New Dataset
 
