@@ -16,20 +16,26 @@ Python 3.6 or above is strongly recommended; using older python versions might l
 
 ## Reproducing the Results
 
-We provide the four datasets used in the paper under ```datasets``` and four bash scripts ```agnews.sh```, ```dbpedia.sh```, ```imdb.sh``` and ```amazon.sh``` for running the model on the four datasets.
+We provide four ```get_data.sh``` scripts for downloading the datasets used in the paper under ```datasets``` and four training bash scripts [```agnews.sh```](agnews.sh), [```dbpedia.sh```](dbpedia.sh), [```imdb.sh```](imdb.sh) and [```amazon.sh```](amazon.sh) for running the model on the four datasets.
 
 The bash scripts assume you have two 10GB GPUs. If you have different number of GPUs, or GPUs of different memory sizes, refer to [the next section](#command-line-arguments) for how to set command line arguments appropriately.
 
 ## Command Line Arguments
+
+The meanings of the command line arguments will be displayed upon typing
+```
+python src/train.py -h
+```
+The following arguments have direct impact on the performance of the model and need to be set carefully:
+
+* train_batch_size: 
 
 ## Running on a New Dataset
 
 To execute the code on a new dataset, you need to 
 
 1. Create a directory named ```${dataset}```.
-2. Put raw corpus (with or without true labels) under ```./${dataset}```.
-3. Modify the function ```read_file``` in ```load_data.py``` so that it returns a list of documents in variable ```data```, and corresponding true labels in variable ```y``` (If ground truth labels are not available, simply return ```y = None```).
-4. Modify ```main.py``` to accept the new dataset; you need to add ```${dataset}``` to argparse, and then specify parameter settings (e.g. ```update_interval```, ```pretrain_epochs```) for the new dataset.
+2. 
 
 You can always refer to the example datasets when adapting the code for a new dataset.
 
