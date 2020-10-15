@@ -1,6 +1,5 @@
-from transformers import BertPreTrainedModel, BertModel, BertForMaskedLM
+from transformers import BertPreTrainedModel, BertModel
 from transformers.modeling_bert import BertOnlyMLMHead
-import torch
 from torch import nn
 import sys
 
@@ -10,7 +9,6 @@ class LOTClassModel(BertPreTrainedModel):
     def __init__(self, config):
         super().__init__(config)
         self.num_labels = config.num_labels
-        self.mlm_probability = 0.15
         self.bert = BertModel(config, add_pooling_layer=False)
         self.cls = BertOnlyMLMHead(config)
         self.dropout = nn.Dropout(config.hidden_dropout_prob)
@@ -41,11 +39,3 @@ class LOTClassModel(BertPreTrainedModel):
         else:
             sys.exit("Wrong pred_mode!")
         return logits
-        
-    def freeze_bert_encoder(self):
-        for param in self.bert.parameters():
-            param.requires_grad = False
-    
-    def unfreeze_bert_encoder(self):
-        for param in self.bert.parameters():
-            param.requires_grad = True

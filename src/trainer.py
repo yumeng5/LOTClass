@@ -433,10 +433,10 @@ class LOTClassTrainer(object):
     def mcp(self, top_pred_num=50, match_threshold=20, epochs=5, loader_name="mcp_model.pt"):
         loader_file = os.path.join(self.dataset_dir, loader_name)
         if os.path.exists(loader_file):
-            print(f"Loading model trained via masked category prediction from {loader_file}")
+            print(f"\nLoading model trained via masked category prediction from {loader_file}")
         else:
             self.prepare_mcp(top_pred_num, match_threshold)
-            print(f"Training model via masked category prediction.")
+            print(f"\nTraining model via masked category prediction.")
             mp.spawn(self.mcp_dist, nprocs=self.world_size, args=(epochs, loader_name))
         self.model.load_state_dict(torch.load(loader_file))
 
