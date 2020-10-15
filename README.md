@@ -28,10 +28,10 @@ The meanings of the command line arguments will be displayed upon typing
 ```
 python src/train.py -h
 ```
-The following arguments have direct impact on the performance of the model and need to be set carefully:
+The following arguments directly affect the performance of the model and need to be set carefully:
 
 * ```train_batch_size```, ```accum_steps```, ```gpus```: These three arguments should be set together. You need to make sure that the **effective training batch size**, calculated as ```train_batch_size * accum_steps * gpus```, is around **128**. For example, if you have 4 GPUs, then you can set ```train_batch_size = 32, accum_steps = 1, gpus = 4```; if you have 1 GPU, then you can set ```train_batch_size = 32, accum_steps = 4, gpus = 1```. If your GPUs have different memory sizes, you might need to change ```train_batch_size``` while adjusting ```accum_steps``` and ```gpus``` at the same time to keep the **effective training batch size** around **128**.
-* ```eval_batch_size```: This argument only impacts the speed of the algorithm; use as large evaluation batch size as your GPUs can hold. 
+* ```eval_batch_size```: This argument only affects the speed of the algorithm; use as large evaluation batch size as your GPUs can hold. 
 
 ## Running on a New Dataset
 
