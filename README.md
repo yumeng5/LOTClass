@@ -48,9 +48,9 @@ To execute the code on a new dataset, you need to
 5. Run the code with appropriate command line arguments (I recommend creating a new bash script by referring to the four example scripts).
 6. The final trained classification model will be saved as ```final_model.pt``` under ```your_dataset```.
 
-**Note: The code will cache intermediate data and model checkpoints as .pt files under your dataset directory for continue training. If you change your label names and re-run the code, you will need to first delete all .pt files other than train.pt and test.pt to prevent the code from loading old results.**
+**Note: The code will cache intermediate data and model checkpoints as .pt files under your dataset directory for continued training. If you change your label names and re-run the code, you will need to first delete all .pt files other than train.pt and test.pt to prevent the code from loading old results.**
 
-You can always refer to the example datasets when adapting the code for a new dataset.
+You can always refer to the example datasets when preparing your own datasets.
 
 ## Citations
 
