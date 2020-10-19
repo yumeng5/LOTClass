@@ -33,7 +33,7 @@ The following arguments directly affect the performance of the model and need to
 * ```train_batch_size```, ```accum_steps```, ```gpus```: These three arguments should be set together. You need to make sure that the **effective training batch size**, calculated as ```train_batch_size * accum_steps * gpus```, is around **128**. For example, if you have 4 GPUs, then you can set ```train_batch_size = 32, accum_steps = 1, gpus = 4```; if you have 1 GPU, then you can set ```train_batch_size = 32, accum_steps = 4, gpus = 1```. If your GPUs have different memory sizes, you might need to change ```train_batch_size``` while adjusting ```accum_steps``` and ```gpus``` at the same time to keep the **effective training batch size** around **128**.
 * ```eval_batch_size```: This argument only affects the speed of the algorithm; use as large evaluation batch size as your GPUs can hold.
 * ```max_len```: This argument controls the maximum length of documents fed into the model (longer documents will be truncated). Ideally, ```max_len``` should be set to the length of the longest document (```max_len``` cannot be larger than ```512``` under BERT architecture), but using larger ```max_len``` also consumes more GPU memory, resulting in smaller batch size and longer training time. Therefore, you can trade model accuracy for faster training by reducing ```max_len```.
-* ```mcp_epochs```, ```self_train_epochs```: They control how many epochs to train the model on masked category prediction task and self-training task, respectively. Setting ```mcp_epochs = 3, self_train_epochs = 1``` will be a good starting point for most datasets, but you may increase them if your dataset is small (less than ```10,000``` documents).
+* ```mcp_epochs```, ```self_train_epochs```: They control how many epochs to train the model on masked category prediction task and self-training task, respectively. Setting ```mcp_epochs = 3, self_train_epochs = 1``` will be a good starting point for most datasets, but you may increase them if your dataset is small (less than ```100,000``` documents).
 
 Other arguments can be kept as their default values.
 
@@ -48,7 +48,7 @@ To execute the code on a new dataset, you need to
 5. Run the code with appropriate command line arguments (I recommend creating a new bash script by referring to the four example scripts).
 6. The final trained classification model will be saved as ```final_model.pt``` under ```your_dataset```.
 
-**Note: The code will cache intermediate data and model checkpoints as .pt files under your dataset directory for continued training. If you change your label names and re-run the code, you will need to first delete all .pt files other than train.pt and test.pt to prevent the code from loading old results.**
+**Note: The code will cache intermediate data and model checkpoints as .pt files under your dataset directory for continued training. If you change your training corpus or label names and re-run the code, you will need to first delete all .pt files to prevent the code from loading old results.**
 
 You can always refer to the example datasets when preparing your own datasets.
 
