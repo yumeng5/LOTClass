@@ -379,6 +379,7 @@ class LOTClassTrainer(object):
             torch.save(self.mcp_data, loader_file)
             if os.path.exists(self.temp_dir):
                 shutil.rmtree(self.temp_dir)
+        print(f"There are {len(self.mcp_data['input_ids'])} documents with category indicative terms.")
 
     # masked category prediction (distributed function)
     def mcp_dist(self, rank, epochs=5, loader_name="mcp_model.pt"):
