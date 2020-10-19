@@ -318,6 +318,7 @@ class LOTClassTrainer(object):
         all_input_ids = []
         all_mask_label = []
         all_input_mask = []
+        category_doc_num = defaultdict(int)
         wrap_train_dataset_loader = tqdm(train_dataset_loader) if rank == 0 else train_dataset_loader
         try:
             for batch in wrap_train_dataset_loader:
@@ -342,6 +343,7 @@ class LOTClassTrainer(object):
                             all_input_ids.append(input_ids[valid_doc].cpu())
                             all_mask_label.append(mask_label[valid_doc].cpu())
                             all_input_mask.append(input_mask[valid_doc].cpu())
+                            category_doc_num[i] += valid_doc.int().sum().item()
             all_input_ids = torch.cat(all_input_ids, dim=0)
             all_mask_label = torch.cat(all_mask_label, dim=0)
             all_input_mask = torch.cat(all_input_mask, dim=0)
@@ -349,6 +351,7 @@ class LOTClassTrainer(object):
                 "all_input_ids": all_input_ids,
                 "all_mask_label": all_mask_label,
                 "all_input_mask": all_input_mask,
+                "category_doc_num": category_doc_num,
             }
             save_file = os.path.join(self.temp_dir, f"{rank}_"+loader_name)
             torch.save(save_dict, save_file)
@@ -375,11 +378,20 @@ class LOTClassTrainer(object):
             all_input_ids = torch.cat([res["all_input_ids"] for res in gather_res], dim=0)
             all_mask_label = torch.cat([res["all_mask_label"] for res in gather_res], dim=0)
             all_input_mask = torch.cat([res["all_input_mask"] for res in gather_res], dim=0)
+            category_doc_num = {i: 0 for i in range(self.num_class)}
+            for i in category_doc_num:
+                for res in gather_res:
+                    if i in res["category_doc_num"]:
+                        category_doc_num[i] += res["category_doc_num"][i]
+            print(f"Number of documents with category indicative terms found for each category is: {category_doc_num}")
             self.mcp_data = {"input_ids": all_input_ids, "attention_masks": all_input_mask, "labels": all_mask_label}
             torch.save(self.mcp_data, loader_file)
             if os.path.exists(self.temp_dir):
                 shutil.rmtree(self.temp_dir)
-        print(f"There are {len(self.mcp_data['input_ids'])} documents with category indicative terms.")
+            for i in category_doc_num:
+                assert category_doc_num[i] > 100, f"Too few ({category_doc_num[i]}) documents with category indicative terms found for category {i};" \
+                       "try to add more unlabeled documents to the training corpus (recommend) or reduce `--match_threshold` (not recommend)"
+        print(f"There are totally {len(self.mcp_data['input_ids'])} documents with category indicative terms.")
 
     # masked category prediction (distributed function)
     def mcp_dist(self, rank, epochs=5, loader_name="mcp_model.pt"):
