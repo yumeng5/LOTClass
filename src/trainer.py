@@ -389,7 +389,7 @@ class LOTClassTrainer(object):
             if os.path.exists(self.temp_dir):
                 shutil.rmtree(self.temp_dir)
             for i in category_doc_num:
-                assert category_doc_num[i] > 100, f"Too few ({category_doc_num[i]}) documents with category indicative terms found for category {i};" \
+                assert category_doc_num[i] > 10, f"Too few ({category_doc_num[i]}) documents with category indicative terms found for category {i}; " \
                        "try to add more unlabeled documents to the training corpus (recommend) or reduce `--match_threshold` (not recommend)"
         print(f"There are totally {len(self.mcp_data['input_ids'])} documents with category indicative terms.")
 
