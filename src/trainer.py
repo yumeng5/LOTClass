@@ -618,7 +618,7 @@ class LOTClassTrainer(object):
     def write_results(self, loader_name="final_model.pt", out_file="out.txt"):
         loader_file = os.path.join(self.dataset_dir, loader_name)
         assert os.path.exists(loader_file)
-        print(f"\nLoading model trained via masked category prediction from {loader_file}")
+        print(f"\nLoading final model from {loader_file}")
         self.model.load_state_dict(torch.load(loader_file))
         self.model.to(0)
         test_set = TensorDataset(self.test_data["input_ids"], self.test_data["attention_masks"])
