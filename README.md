@@ -1,6 +1,6 @@
 # LOTClass
 
-The source code used for **Text Classification Using Label Names Only: A Language Model Self-Training Approach**, published in EMNLP 2020.
+The source code used for [**Text Classification Using Label Names Only: A Language Model Self-Training Approach**](https://arxiv.org/abs/2010.07245), published in EMNLP 2020.
 
 ## Requirements
 
