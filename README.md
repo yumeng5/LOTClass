@@ -12,6 +12,13 @@ Before running, you need to first install the required packages by typing follow
 $ pip3 install -r requirements.txt
 ```
 
+Also, you need to download the stopwords in the NLTK library:
+
+```
+import nltk
+nltk.download('stopwords')
+```
+
 Python 3.6 or above is strongly recommended; using older python versions might lead to package incompatibility issues.
 
 ## Reproducing the Results
